@@ -4,6 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vita Femme — Proteína premium para tu nueva etapa</title>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1525296406060038');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1525296406060038&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -758,10 +777,35 @@
     });
   });
 
+  // Endpoint del Apps Script que guarda los registros en la hoja de cálculo
+  var WAITLIST_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzVWJoSxpyFfa4XauV63ip4UZd_R7VBBazufzZrJ5UvG6jZkl5SxH4Txf3byqSfRiOr/exec';
+
   document.getElementById('waitlistForm').addEventListener('submit', function(e){
     e.preventDefault();
-    document.getElementById('formState').style.display = 'none';
-    document.getElementById('successBox').style.display = 'block';
+    var form = e.target;
+    var btn = form.querySelector('.btn-submit');
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    var data = new URLSearchParams({
+      nombre: document.getElementById('nombre').value,
+      correo: document.getElementById('correo').value,
+      whatsapp: document.getElementById('whatsapp').value
+    });
+
+    fetch(WAITLIST_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: data
+    }).then(function(){
+      document.getElementById('formState').style.display = 'none';
+      document.getElementById('successBox').style.display = 'block';
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+      alert('Hubo un problema al enviar. Por favor intenta de nuevo.');
+    });
   });
 </script>
 
