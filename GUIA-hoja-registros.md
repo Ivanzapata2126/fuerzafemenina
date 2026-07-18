@@ -9,7 +9,7 @@
 
 1. Entrar a **https://sheets.google.com** (con la cuenta de la clienta).
 2. Clic en **"Hoja de cálculo en blanco"** (el `+`).
-3. Arriba a la izquierda, ponerle un nombre: **Lista de espera Vita Femme**.
+3. Arriba a la izquierda, ponerle un nombre: **Lista de espera Vitta Femme**.
 
 *(No hay que escribir nada dentro. Los títulos de las columnas se crean solos con el primer registro.)*
 

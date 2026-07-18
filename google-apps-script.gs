@@ -1,5 +1,5 @@
 /**
- * Vita Femme - Lista de espera
+ * Vitta Femme - Lista de espera
  * Recibe los registros del formulario y los agrega como filas en la hoja.
  *
  * Cómo usarlo:
@@ -32,6 +32,10 @@ function doPost(e) {
       sheet.appendRow(['Fecha', 'Nombre', 'Correo', 'WhatsApp']);
     }
 
+    // La columna del WhatsApp debe ser TEXTO antes de escribir:
+    // si no, Sheets lee el "+57 ..." como una formula y muestra #ERROR!
+    sheet.getRange('D:D').setNumberFormat('@');
+
     var p = e.parameter;
     var fecha = Utilities.formatDate(new Date(), 'America/Bogota', 'yyyy-MM-dd HH:mm:ss');
 
@@ -41,10 +45,6 @@ function doPost(e) {
       p.correo  || '',
       p.whatsapp || ''
     ]);
-
-    // Guarda el WhatsApp como texto para no perder el "+" ni los ceros iniciales
-    sheet.getRange(sheet.getLastRow(), 4).setNumberFormat('@');
-    sheet.getRange(sheet.getLastRow(), 4).setValue(p.whatsapp || '');
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: 'success' }))

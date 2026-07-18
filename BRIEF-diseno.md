@@ -1,8 +1,8 @@
-# Brief de diseño — Vita Femme (landing de lista de espera)
+# Brief de diseño — Vitta Femme (landing de lista de espera)
 
 ## Qué es
 Landing page de **una sola pantalla scrolleable** para captar una **lista de espera** previa al lanzamiento
-de **Vita Femme**, una **proteína premium en polvo** formulada específicamente para mujeres en
+de **Vitta Femme**, una **proteína premium en polvo** formulada específicamente para mujeres en
 **perimenopausia y menopausia**. El producto aún no está a la venta: el único objetivo de la página
 es que la visitante deje sus datos.
 
