@@ -7,6 +7,9 @@ WORKDIR /usr/share/nginx/html
 # Copiar el HTML al contenedor como index.html (se sirve en la raíz)
 COPY fuerzasfemeninas.html index.html
 
+# Copiar las imagenes (producto, logo y favicon)
+COPY producto.png logo.png favicon.png ./
+
 # Copiar configuración personalizada de Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 

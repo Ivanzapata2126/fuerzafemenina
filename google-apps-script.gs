@@ -3,20 +3,15 @@
  * Recibe los registros del formulario y los agrega como filas en la hoja.
  *
  * Cómo usarlo:
- *  1. Crea una hoja de cálculo nueva en Google Sheets.
- *  2. Menú Extensiones > Apps Script.
- *  3. Borra lo que haya y pega TODO este código.
- *  4. Guarda (icono del disquete).
- *  5. Implementar > Nueva implementación > tipo "Aplicación web".
+ *  1. Pega TODO este código en Extensiones > Apps Script (borra lo que haya).
+ *  2. Guarda (icono del disquete).
+ *  3. Implementar > Gestionar implementaciones > lápiz ✏️
+ *       - Versión: "Nueva versión"   <-- imprescindible, si no los cambios no salen
  *       - Ejecutar como: Yo
  *       - Quién tiene acceso: Cualquier usuario
- *  6. Copia la URL que termina en /exec y pégala en el HTML (WAITLIST_ENDPOINT).
+ *  4. Implementar.
  */
 
-/**
- * Prueba rápida: abre la URL /exec en el navegador.
- * Si ves el mensaje de OK, la implementación está bien publicada.
- */
 function doGet() {
   return ContentService
     .createTextOutput('OK - el script esta publicado correctamente')
@@ -29,21 +24,22 @@ function doPost(e) {
 
     // Si la hoja está vacía, crea los encabezados
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Fecha', 'Nombre', 'Correo', 'WhatsApp']);
+      sheet.appendRow(['Fecha', 'Nombre', 'Correo', 'Indicativo', 'WhatsApp']);
     }
 
-    // La columna del WhatsApp debe ser TEXTO antes de escribir:
-    // si no, Sheets lee el "+57 ..." como una formula y muestra #ERROR!
-    sheet.getRange('D:D').setNumberFormat('@');
+    // Indicativo y WhatsApp deben ser TEXTO antes de escribir:
+    // si no, Sheets lee el "+57" como una fórmula y muestra #ERROR!
+    sheet.getRange('D:E').setNumberFormat('@');
 
     var p = e.parameter;
     var fecha = Utilities.formatDate(new Date(), 'America/Bogota', 'yyyy-MM-dd HH:mm:ss');
 
     sheet.appendRow([
       fecha,
-      p.nombre  || '',
-      p.correo  || '',
-      p.whatsapp || ''
+      p.nombre     || '',
+      p.correo     || '',
+      p.indicativo || '',
+      p.whatsapp   || ''
     ]);
 
     return ContentService
