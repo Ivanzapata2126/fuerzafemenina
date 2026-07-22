@@ -8,7 +8,7 @@ WORKDIR /usr/share/nginx/html
 COPY fuerzasfemeninas.html index.html
 
 # Copiar las imagenes (producto, logo y favicon)
-COPY producto.png logo.png favicon.png ./
+COPY producto.jpeg logo.png favicon.png ./
 
 # Copiar configuración personalizada de Nginx
 COPY nginx.conf /etc/nginx/nginx.conf

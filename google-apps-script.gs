@@ -24,22 +24,21 @@ function doPost(e) {
 
     // Si la hoja está vacía, crea los encabezados
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Fecha', 'Nombre', 'Correo', 'Indicativo', 'WhatsApp']);
+      sheet.appendRow(['Fecha', 'Nombre', 'Correo', 'Ciudad', 'WhatsApp']);
     }
 
-    // Indicativo y WhatsApp deben ser TEXTO antes de escribir:
-    // si no, Sheets lee el "+57" como una fórmula y muestra #ERROR!
-    sheet.getRange('D:E').setNumberFormat('@');
+    // La columna WhatsApp debe ser TEXTO para que Sheets no altere el número.
+    sheet.getRange('E:E').setNumberFormat('@');
 
     var p = e.parameter;
     var fecha = Utilities.formatDate(new Date(), 'America/Bogota', 'yyyy-MM-dd HH:mm:ss');
 
     sheet.appendRow([
       fecha,
-      p.nombre     || '',
-      p.correo     || '',
-      p.indicativo || '',
-      p.whatsapp   || ''
+      p.nombre   || '',
+      p.correo   || '',
+      p.ciudad   || '',
+      p.whatsapp || ''
     ]);
 
     return ContentService
